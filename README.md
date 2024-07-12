@@ -9,9 +9,11 @@
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp)
 
 ### Audio Files
+Compiled a short list of debates to look into: [list_of_debates.csv](./transcription/list_of_debates.csv)
+
 ```shell
 # yt-dlp
-yt-dlp -x --audio-format mp3 https://www.youtube.com/watch?v=example_video_id
+yt-dlp -x --audio-format wav "https://www.youtube.com/watch?v=example_video_id"
 ```
 
 ### Transcripts
@@ -19,7 +21,7 @@ yt-dlp -x --audio-format mp3 https://www.youtube.com/watch?v=example_video_id
 # whisper
 pip install -U openai-whisper
 ```
-Then run [openai-whisper.ipynb](./transcription/openai-whisper.ipynb) with the specified audio file.
+Then run [openai_whisper.ipynb](./transcription/openai_whisper.ipynb) with the specified audio file.
 ```shell
 # yt-dlp
 yt-dlp --write-sub --skip-download --sub-lang en --convert-subs srt https://www.youtube.com/watch?v=example_video_id
