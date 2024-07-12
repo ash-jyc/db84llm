@@ -22,7 +22,7 @@ pip install -U openai-whisper
 Then run [openai-whisper.ipynb](./transcription/openai-whisper.ipynb) with the specified audio file.
 ```shell
 # yt-dlp
-yt-dlp --write-sub --skip-download --sub-lang en --convert-subs srt https://www.youtube.com/watch?v=example_video_id
+yt-dlp --write-sub --skip-download --sub-lang en --convert-subs srt "https://www.youtube.com/watch?v=example_video_id"
 ```
 Use [vtt_to_text.py](./transcription/vtt_to_text.py) to convert to plain text.
 
