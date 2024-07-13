@@ -5,8 +5,9 @@
 ## Dependencies
 - Python
 - Jupyter
-- [openai/whisper](https://github.com/openai/whisper?tab=readme-ov-file)
+- [openai/whisper](https://github.com/openai/whisper)
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp)
+- [sox](https://pypi.org/project/sox/)
 
 ### Audio Files
 Compiled a short list of debates to look into: [list_of_debates.csv](./transcription/list_of_debates.csv)
@@ -14,6 +15,12 @@ Compiled a short list of debates to look into: [list_of_debates.csv](./transcrip
 ```shell
 # yt-dlp
 yt-dlp -x --audio-format wav "https://www.youtube.com/watch?v=example_video_id"
+```
+
+### Speed Reduction
+```shell
+# sox
+pip install sox
 ```
 
 ### Transcripts
