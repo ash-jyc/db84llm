@@ -27,9 +27,9 @@ Follow along the [Whisper JAX README file](https://github.com/sanchit-gandhi/whi
 Navigate to the [JAX](https://github.com/google/jax#installation) page and look for the instructions.  
 Hardware | Instructions
 --- | ---
-CPU | pip install -U jax
-NVIDIA GPU | pip install -U "jax[cuda12]"
-Google TPU | pip install -U "jax[tpu]" -f https://storage.googleapis.com/jax-releases/libtpu_releases.html
+CPU | `pip install -U jax`
+NVIDIA GPU | `pip install -U "jax[cuda12]"`
+Google TPU | `pip install -U "jax[tpu]" -f https://storage.googleapis.com/jax-releases/libtpu_releases.html`
 AMD GPU | Use [Docker](https://hub.docker.com/r/rocm/jax) or [build from source](https://jax.readthedocs.io/en/latest/developer.html#additional-notes-for-building-a-rocm-jaxlib-for-amd-gpus).
 Apple GPU | Follow [Apple's instructions](https://developer.apple.com/metal/jax/).
   
