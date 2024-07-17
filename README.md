@@ -55,10 +55,10 @@ pip install git+https://github.com/sanchit-gandhi/whisper-jax.git
 ```
   
 <b>Step 3: Running Whisper</b>  
-Navigate to the [whisper-jax.ipynb](./transcription/whisper-jax.ipynb) file. If you haven't already, go ahead and `pip install sox`. I've uploaded the different speech files already, so you don't need to run the second cell where it slices the audio file. You still need to run the first cell though.  
+Navigate to the [whisper-jax.ipynb](./transcription/whisper-jax.ipynb) file. If you haven't already, go ahead and `pip install sox`. The debate I'm primarily using for testing is `Dartmouth RR 2024 - Round 4 - Michigan PD vs Dartmouth BC`, and I've uploaded each speech individually already so you don't need to run the second cell where it slices the audio file. You still need to run the first cell though.  
 
 After that, in the same directory, create a file called `.env` if not already created. In this file, put in the environment variable mentioned earlier:
 ```shell
 ENABLE_PJRT_COMPATIBILITY=1
 ```
-This way, we can load the environment variable into our current notebook. Everything else should be able to run straight down. I've run into a couple random errors that I don't quite understand, such as `XlaRuntimeError: UNKNOWN`. To solve this, I restart my kernel, maybe pip install a package again, and just try until it works.
+This way, we can load the environment variable into our current notebook. Everything else should be able to run straight down. I have a dummy cell using Whisper on audio_trimmed which is just a one minute audio clip from some random speech. You can choose to run it or not. Also, I've run into a couple random errors that I don't quite understand, such as `XlaRuntimeError: UNKNOWN`. To solve this, I restart my kernel, maybe pip install a package again, and just try until it works.
