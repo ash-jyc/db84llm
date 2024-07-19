@@ -9,6 +9,11 @@
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp)
 - [sox](https://pypi.org/project/sox/)
 
+## Update List of Debates
+```shell
+curl -L 'https://docs.google.com/spreadsheets/d/1SgFmh0L-VZMappWinTkA628Le5dgT2hmosngM2jDdlo/export?exportFormat=csv';  
+```
+
 ## Audio Files
 Compiled a short list of debates to look into: [list_of_debates.csv](./transcription/list_of_debates.csv). Will most likely use a Google Spreadsheet API to dynamically get these in the future.
 
