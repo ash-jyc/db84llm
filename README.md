@@ -55,7 +55,7 @@ pip install git+https://github.com/sanchit-gandhi/whisper-jax.git
 ```
   
 <b>Step 3: Running Whisper</b>  
-Navigate to the [whisper-jax.ipynb](./transcription/whisper-jax.ipynb) file. If you haven't already, go ahead and `pip install sox`. The debate I'm primarily using for testing is `Dartmouth RR 2024 - Round 4 - Michigan PD vs Dartmouth BC`, and I've uploaded each speech individually already so you don't need to run the second cell where it slices the audio file. You still need to run the first cell though.  
+Navigate to the [whisper_jax.ipynb](./transcription/whisper_jax.ipynb) file. If you haven't already, go ahead and `pip install sox`. The debate I'm primarily using for testing is `Dartmouth RR 2024 - Round 4 - Michigan PD vs Dartmouth BC`, and I've uploaded each speech individually already so you don't need to run the second cell where it slices the audio file. You still need to run the first cell though.  
 
 After that, in the same directory, create a file called `.env` if not already created. In this file, put in the environment variable mentioned earlier:
 ```shell
