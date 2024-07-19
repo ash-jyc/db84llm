@@ -11,7 +11,7 @@
 
 ## Update List of Debates
 ```shell
-curl -L 'https://docs.google.com/spreadsheets/d/1SgFmh0L-VZMappWinTkA628Le5dgT2hmosngM2jDdlo/export?exportFormat=csv';  
+curl -L 'https://docs.google.com/spreadsheets/d/1SgFmh0L-VZMappWinTkA628Le5dgT2hmosngM2jDdlo/export?exportFormat=csv' --output list_of_debates.csv
 ```
 
 ## Audio Files
