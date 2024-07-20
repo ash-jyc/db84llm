@@ -1,11 +1,13 @@
 # db84llm
 ## Overview
 [[doc]](https://docs.google.com/document/d/1crGWlnyNGzeMiyU7aU-ASB3LHUfqGN0PjMI9Fk-QO90/edit#heading=h.1o0zogi4z3b1)
+[[sheet]](https://docs.google.com/spreadsheets/d/1SgFmh0L-VZMappWinTkA628Le5dgT2hmosngM2jDdlo/edit?usp=sharing)
 
 ## Dependencies
 - Python
 - Jupyter Notebook
-- <s>[openai/whisper](https://github.com/openai/whisper)</s>
+- ~~[openai/whisper](https://github.com/openai/whisper)~~
+- Whisper JAX (see below)
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp)
 - [sox](https://pypi.org/project/sox/)
 
