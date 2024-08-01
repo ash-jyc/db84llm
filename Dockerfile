@@ -12,17 +12,14 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory to /caselist-scraper
-WORKDIR /caselist-scraper
-
 # Copy requirements.txt first to leverage Docker cache
-COPY requirements.txt /caselist-scraper/requirements.txt
+COPY requirements.txt requirements.txt
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code to /caselist-scraper
-COPY . /caselist-scraper
+COPY . .
 
 # Expose port 5000 for Flask
 EXPOSE 5000
@@ -31,4 +28,4 @@ EXPOSE 5000
 ENV FLASK_APP=App.py
 
 # Run Flask application
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "App:app"]
