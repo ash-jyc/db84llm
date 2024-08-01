@@ -1,19 +1,18 @@
+import os
+import pyodbc
+from dotenv import load_dotenv
 from flask import Flask, render_template, jsonify
-import mysql.connector
+from flask_cors import CORS
+# connect to t-sql server
+
+load_dotenv()
+AZURE_SQL_CONNECTIONSTRING = os.environ['AZURE_SQL_CONNECTIONSTRING']
 
 app = Flask(__name__)
-
-# Database connection details
-DB_HOST = 'localhost'
-DB_USER = 'root'
-DB_NAME = 'caselist'
+CORS(app)
 
 def get_caselist_data():
-    connection = mysql.connector.connect(
-        host=DB_HOST,
-        user=DB_USER,
-        database=DB_NAME
-    )
+    connection = pyodbc.connect(AZURE_SQL_CONNECTIONSTRING)
     cursor = connection.cursor()
     cursor.execute("""
         SELECT c.tournament_name, c.round_name, 

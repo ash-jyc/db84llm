@@ -1,5 +1,6 @@
--- mysql
-create table if not exists teams (
+-- t-sql script to create the tables for the caselist scraper
+
+create table teams (
     team_id int primary key,
     team_school varchar(255),
     team_code4 varchar(4),
@@ -7,8 +8,8 @@ create table if not exists teams (
     team_code2_alt varchar(2)
 );
 
-create table if not exists caselist (
-    round_id int primary key auto_increment,
+create table caselist (
+    round_id int primary key identity(1,1),
     tournament_name varchar(255),
     round_name varchar(255),
     aff_team int,
