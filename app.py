@@ -8,8 +8,9 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-load_dotenv()
+# load_dotenv()
 connection_string = os.environ['AZURE_SQL_CONNECTIONSTRING']
+# print("connection_string", connection_string)
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
