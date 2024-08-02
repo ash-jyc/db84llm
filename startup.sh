@@ -16,7 +16,7 @@ curl https://packages.microsoft.com/config/ubuntu/18.04/prod.list > /etc/apt/sou
 apt-get update
 
 # Install ODBC driver for SQL Server
-ACCEPT_EULA=Y apt-get install -y msodbcsql17
+ACCEPT_EULA=Y apt-get install -y msodbcsql18
 
 # Install unixodbc-dev for pyodbc
 apt-get install -y unixodbc-dev
