@@ -1,61 +1,79 @@
 import os
-import pyodbc
+import pyodbc, struct
+from azure import identity
+
+from typing import Union
+from fastapi import FastAPI
+from pydantic import BaseModel
+
 from dotenv import load_dotenv
-from flask import Flask, render_template, jsonify
-from flask_cors import CORS
-# connect to t-sql server
 
+class Person(BaseModel):
+    first_name: str
+    last_name: Union[str, None] = None
+    
 load_dotenv()
-AZURE_SQL_CONNECTIONSTRING = os.environ['AZURE_SQL_CONNECTIONSTRING']
+connection_string = os.environ["AZURE_SQL_CONNECTIONSTRING"]
 
-app = Flask(__name__)
-CORS(app)
+app = FastAPI()
 
-def get_caselist_data():
-    connection = pyodbc.connect(AZURE_SQL_CONNECTIONSTRING)
-    cursor = connection.cursor()
-    cursor.execute("""
-        SELECT c.tournament_name, c.round_name, 
-               t1.team_school AS aff_school, t1.team_code4 AS aff_code,
-               t2.team_school AS neg_school, t2.team_code4 AS neg_code,
-               c.aff_doc, c.neg_doc, c.yt_link
-        FROM caselist c
-        JOIN teams t1 ON c.aff_team = t1.team_id
-        JOIN teams t2 ON c.neg_team = t2.team_id
-        WHERE c.aff_team IS NOT NULL AND c.neg_team IS NOT NULL
-    """)
-    data = cursor.fetchall()
-    cursor.close()
-    connection.close()
-    
-    # Convert the data to a list of dictionaries
-    data = [
-        {
-            'tournament_name': row[0],
-            'round_name': row[1],
-            'aff_school': row[2],
-            'aff_code': row[3],
-            'neg_school': row[4],
-            'neg_code': row[5],
-            'aff_doc': row[6],
-            'neg_doc': row[7],
-            'yt_link': row[8]
-        }
-        for row in data
-    ]
-    
-    return data
+@app.get("/")
+def root():
+    print("Root of Person API")
+    try:
+        conn = get_conn()
+        cursor = conn.cursor()
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+        # Table should be created ahead of time in production app.
+        cursor.execute("""
+            CREATE TABLE Persons (
+                ID int NOT NULL PRIMARY KEY IDENTITY,
+                FirstName varchar(255),
+                LastName varchar(255)
+            );
+        """)
 
-@app.route('/api/caselist')
-def caselist_api():
-    caselist_data = get_caselist_data()
-    return jsonify(caselist_data)
+        conn.commit()
+    except Exception as e:
+        # Table may already exist
+        print(e)
+    return "Person API"
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    print(port)
-    app.run(host="0.0.0.0", port=port, debug=True)
+@app.get("/all")
+def get_persons():
+    rows = []
+    with get_conn() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Persons")
+
+        for row in cursor.fetchall():
+            print(row.FirstName, row.LastName)
+            rows.append(f"{row.ID}, {row.FirstName}, {row.LastName}")
+    return rows
+
+@app.get("/person/{person_id}")
+def get_person(person_id: int):
+    with get_conn() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Persons WHERE ID = ?", person_id)
+
+        row = cursor.fetchone()
+        return f"{row.ID}, {row.FirstName}, {row.LastName}"
+
+@app.post("/person")
+def create_person(item: Person):
+    with get_conn() as conn:
+        cursor = conn.cursor()
+        cursor.execute(f"INSERT INTO Persons (FirstName, LastName) VALUES (?, ?)", item.first_name, item.last_name)
+        conn.commit()
+
+    return item
+
+def get_conn():
+    credential = identity.DefaultAzureCredential(exclude_interactive_browser_credential=False)
+    token_bytes = credential.get_token("https://database.windows.net/.default").token.encode("UTF-16-LE")
+    token_struct = struct.pack(f'<I{len(token_bytes)}s', len(token_bytes), token_bytes)
+    SQL_COPT_SS_ACCESS_TOKEN = 1256  # This connection option is defined by microsoft in msodbcsql.h
+    conn = pyodbc.connect(connection_string, attrs_before={SQL_COPT_SS_ACCESS_TOKEN: token_struct})
+    print(credential, token_bytes, token_struct, conn)
+    return conn
