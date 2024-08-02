@@ -9,26 +9,26 @@ $(document).ready(function() {
             { data: 'round_name' },
             {
                 data: null,
-                render: function(data, type, row) {
-                    return `${row.aff_school} ${row.aff_code}`;
+                render: function(data) {
+                    return `${data.aff_school} ${data.aff_code}`;
                 }
             },
             {
                 data: null,
-                render: function(data, type, row) {
-                    return `${row.neg_school} ${row.neg_code}`;
+                render: function(data) {
+                    return `${data.neg_school} ${data.neg_code}`;
                 }
             },
             {
                 data: 'aff_doc',
                 render: function(data) {
-                    return `<a href="https://api.opencaselist.com/v1/download?path=${data} class="table-icon" target="_blank"><i class="fas fa-file-alt" style="font-size:20px;"></i></a>`;
+                    return `<a href="https://api.opencaselist.com/v1/download?path=${data}" class="table-icon" target="_blank"><i class="fas fa-file-alt" style="font-size:20px;"></i></a>`;
                 }
             },
             {
                 data: 'neg_doc',
                 render: function(data) {
-                    return `<a href="https://api.opencaselist.com/v1/download?path=${data} class="table-icon" target="_blank"><i class="fas fa-file-alt" style="font-size:20px;"></i></a>`;
+                    return `<a href="https://api.opencaselist.com/v1/download?path=${data}" class="table-icon" target="_blank"><i class="fas fa-file-alt" style="font-size:20px;"></i></a>`;
                 }
             },
             {
@@ -42,25 +42,22 @@ $(document).ready(function() {
         pageLength: 25,
         searching: true,
         ordering: true,
-        order: [[0, 'asc']] // Default sorting by first column
+        order: [[0, 'asc']]
     });
 
-    // Custom search functionality
     $('#searchInput').on('input', function() {
         const searchBy = $('#searchBy').val();
         const searchValue = this.value.toLowerCase();
 
         if (searchBy === 'all') {
-            // Search across all columns
-            table.search(searchValue, true, false).draw();
+            table.search(searchValue).draw();  // Apply search to all columns
         } else {
-            // Search only the specified column
             const columnIndex = $('#searchBy').find('option:selected').data('column');
-            table.column(columnIndex).search(searchValue, true, false).draw();
+            table.column(columnIndex).search(searchValue).draw();  // Apply search to the specific column
         }
     });
 
     $('#searchBy').on('change', function() {
-        $('#searchInput').trigger('input');
+        $('#searchInput').trigger('input');  // Trigger search on dropdown change
     });
 });
