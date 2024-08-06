@@ -28,17 +28,25 @@ th {
     margin-bottom: 10px;
 }
 
-#searchInput {
+.searchInput {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-right: 10px; /* Space between search input and dropdown */
 }
 
-#searchBy {
+#clearButton {
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #dbdbdb;
     border-radius: 4px;
+    background-color: #e4e4e4;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+#clearButton:hover {
+    background-color: #ccc;
 }
 
 /* Center icons in table cells */
