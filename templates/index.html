@@ -16,15 +16,13 @@
     <div class="container">
         <h1>Caselist Table</h1>
         <div class="search">
-            <input type="text" id="searchInput" placeholder="Search...">
-            <select id="searchBy" class="form-select">
-                <option value="all" data-column="all">All</option>
-                <option value="tournament_name" data-column="0">Tournament</option>
-                <option value="round_name" data-column="1">Round</option>
-                <option value="aff_team" data-column="2">Aff Team</option>
-                <option value="neg_team" data-column="3">Neg Team</option>
-            </select>            
-        </div>
+            <input type="text" id="searchTournament" placeholder="Tournament" data-column="0">
+            <input type="text" id="searchRound" placeholder="Round" data-column="1">
+            <input type="text" id="searchAffTeam" placeholder="Aff Team" data-column="2">
+            <input type="text" id="searchNegTeam" placeholder="Neg Team" data-column="3">
+        </div>  
+        <!-- clear search -->
+        <button id="clearButton" class="btn btn-primary">Clear Search</button>
         <table id="caselist-table" class="table table-striped table-bordered">
             <thead>
                 <tr>

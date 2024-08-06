@@ -45,19 +45,29 @@ $(document).ready(function() {
         order: [[0, 'asc']]
     });
 
-    $('#searchInput').on('input', function() {
-        const searchBy = $('#searchBy').val();
-        const searchValue = this.value.toLowerCase();
+    function applySearch() {
+        const tournamentName = $('#searchTournament').val().toLowerCase();
+        const roundName = $('#searchRound').val().toLowerCase();
+        const affTeam = $('#searchAffTeam').val().toLowerCase();
+        const negTeam = $('#searchNegTeam').val().toLowerCase();
 
-        if (searchBy === 'all') {
-            table.search(searchValue).draw();  // Apply search to all columns
-        } else {
-            const columnIndex = $('#searchBy').find('option:selected').data('column');
-            table.column(columnIndex).search(searchValue).draw();  // Apply search to the specific column
-        }
+        table.column(0).search(tournamentName);
+        table.column(1).search(roundName);
+        table.column(2).search(affTeam);
+        table.column(3).search(negTeam);
+        table.draw();
+    }
+
+    $('#searchTournament, #searchRound, #searchAffTeam, #searchNegTeam').on('input', function() {
+        applySearch();
     });
 
-    $('#searchBy').on('change', function() {
-        $('#searchInput').trigger('input');  // Trigger search on dropdown change
+    $('#clearButton').on('click', function() {
+        $('#searchTournament').val('');
+        $('#searchRound').val('');
+        $('#searchAffTeam').val('');
+        $('#searchNegTeam').val('');
+        applySearch();
     });
+
 });
