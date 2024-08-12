@@ -34,7 +34,12 @@ $(document).ready(function() {
             {
                 data: 'yt_link',
                 render: function(data) {
-                    return `<a href="${data}" target="_blank"><i class="fab fa-youtube" style="font-size:20px;"></i></a>`;
+                    // only show icon if there is a link
+                    if (data) {
+                        return `<a href="${data}" class="table-icon yt-icon" target="_blank"><i class="fab fa-youtube" style="font-size:20px;"></i></a>`;
+                    } else {
+                        return '';
+                    }
                 }
             }
         ],
